@@ -1,10 +1,6 @@
 package main
 
 import (
-	"ehang.io/nps/client"
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/daemon"
-	"ehang.io/nps/lib/version"
 	"fmt"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -18,6 +14,10 @@ import (
 	"runtime"
 	"strings"
 	"time"
+	"xuzhi.cc/nps/client"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/daemon"
+	"xuzhi.cc/nps/lib/version"
 )
 
 func main() {

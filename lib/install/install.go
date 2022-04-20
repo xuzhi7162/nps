@@ -1,7 +1,6 @@
 package install
 
 import (
-	"ehang.io/nps/lib/common"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -14,6 +13,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"xuzhi.cc/nps/lib/common"
 )
 
 // Keep it in sync with the template from service_sysv_linux.go file
@@ -168,7 +168,7 @@ func downloadLatest(bin string) string {
 	fmt.Println("the latest version is", version)
 	filename := runtime.GOOS + "_" + runtime.GOARCH + "_" + bin + ".tar.gz"
 	// download latest package
-	downloadUrl := fmt.Sprintf("https://ehang.io/nps/releases/download/%s/%s", version, filename)
+	downloadUrl := fmt.Sprintf("https://xuzhi.cc/nps/releases/download/%s/%s", version, filename)
 	fmt.Println("download package from ", downloadUrl)
 	resp, err := http.Get(downloadUrl)
 	if err != nil {

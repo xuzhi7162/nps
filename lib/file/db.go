@@ -8,9 +8,9 @@ import (
 	"strings"
 	"sync"
 
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/crypt"
-	"ehang.io/nps/lib/rate"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/crypt"
+	"xuzhi.cc/nps/lib/rate"
 )
 
 type DbUtils struct {

@@ -7,13 +7,13 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"ehang.io/nps/bridge"
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/conn"
-	"ehang.io/nps/lib/file"
-	"ehang.io/nps/server/connection"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
+	"xuzhi.cc/nps/bridge"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/conn"
+	"xuzhi.cc/nps/lib/file"
+	"xuzhi.cc/nps/server/connection"
 )
 
 type TunnelModeServer struct {

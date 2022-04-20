@@ -1,12 +1,12 @@
 package goroutine
 
 import (
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/file"
 	"github.com/panjf2000/ants/v2"
 	"io"
 	"net"
 	"sync"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/file"
 )
 
 type connGroup struct {

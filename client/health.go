@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"ehang.io/nps/lib/conn"
-	"ehang.io/nps/lib/file"
-	"ehang.io/nps/lib/sheap"
 	"github.com/astaxie/beego/logs"
 	"github.com/pkg/errors"
+	"xuzhi.cc/nps/lib/conn"
+	"xuzhi.cc/nps/lib/file"
+	"xuzhi.cc/nps/lib/sheap"
 )
 
 var isStart bool

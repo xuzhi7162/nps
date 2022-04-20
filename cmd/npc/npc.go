@@ -1,12 +1,6 @@
 package main
 
 import (
-	"ehang.io/nps/client"
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/config"
-	"ehang.io/nps/lib/file"
-	"ehang.io/nps/lib/install"
-	"ehang.io/nps/lib/version"
 	"flag"
 	"fmt"
 	"github.com/astaxie/beego/logs"
@@ -18,6 +12,12 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"xuzhi.cc/nps/client"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/config"
+	"xuzhi.cc/nps/lib/file"
+	"xuzhi.cc/nps/lib/install"
+	"xuzhi.cc/nps/lib/version"
 )
 
 var (

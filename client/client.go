@@ -3,20 +3,20 @@ package client
 import (
 	"bufio"
 	"bytes"
-	"ehang.io/nps-mux"
 	"net"
 	"net/http"
 	"strconv"
 	"sync"
 	"time"
+	"xuzhi.cc/nps/nps-mux"
 
 	"github.com/astaxie/beego/logs"
 	"github.com/xtaci/kcp-go"
 
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/config"
-	"ehang.io/nps/lib/conn"
-	"ehang.io/nps/lib/crypt"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/config"
+	"xuzhi.cc/nps/lib/conn"
+	"xuzhi.cc/nps/lib/crypt"
 )
 
 type TRPClient struct {

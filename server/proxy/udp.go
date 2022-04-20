@@ -7,11 +7,11 @@ import (
 	"sync"
 	"time"
 
-	"ehang.io/nps/bridge"
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/conn"
-	"ehang.io/nps/lib/file"
 	"github.com/astaxie/beego/logs"
+	"xuzhi.cc/nps/bridge"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/conn"
+	"xuzhi.cc/nps/lib/file"
 )
 
 type UdpModeServer struct {

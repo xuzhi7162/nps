@@ -5,12 +5,12 @@ import (
 	"strconv"
 	"time"
 
-	"ehang.io/nps/lib/common"
 	"github.com/astaxie/beego"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/load"
 	"github.com/shirou/gopsutil/v3/mem"
 	"github.com/shirou/gopsutil/v3/net"
+	"xuzhi.cc/nps/lib/common"
 )
 
 var (

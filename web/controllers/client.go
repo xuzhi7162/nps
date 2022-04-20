@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"ehang.io/nps/lib/common"
-	"ehang.io/nps/lib/file"
-	"ehang.io/nps/lib/rate"
-	"ehang.io/nps/server"
 	"github.com/astaxie/beego"
+	"xuzhi.cc/nps/lib/common"
+	"xuzhi.cc/nps/lib/file"
+	"xuzhi.cc/nps/lib/rate"
+	"xuzhi.cc/nps/server"
 )
 
 type ClientController struct {
