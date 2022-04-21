@@ -10,11 +10,13 @@ import (
 //For non-Windows systems, select the /etc/nps as config directory if exist, or select ./
 //windows system, select the C:\Program Files\nps as config directory if exist, or select ./
 func GetRunPath() string {
-	var path string
-	if path = GetInstallPath(); !FileExists(path) {
-		return GetAppPath()
-	}
-	return path
+	// TODO 记得删除,本地开发,不想在操作系统内建立太多的配置文件
+	//var path string
+	//if path = GetInstallPath(); !FileExists(path) {
+	//	return GetAppPath()
+	//}
+	//return path
+	return "/Users/xuzhi/Projects/golang/src/nps"
 }
 
 //Different systems get different installation paths

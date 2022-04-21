@@ -39,24 +39,38 @@ func main() {
 		common.PrintVersion()
 		return
 	}
+
+	// beego 框架读取配置文件,加载至 beego 上下文
 	if err := beego.LoadAppConfig("ini", filepath.Join(common.GetRunPath(), "conf", "nps.conf")); err != nil {
 		log.Fatalln("load config file error", err.Error())
 	}
+
+	// 暂时不知道有啥用
 	common.InitPProfFromFile()
+
+	// 读取日志等级
 	if level = beego.AppConfig.String("log_level"); level == "" {
 		level = "7"
 	}
+
+	// 初始化日志打印工具
 	logs.Reset()
 	logs.EnableFuncCallDepth(true)
 	logs.SetLogFuncCallDepth(3)
+
+	// 从配置文件中获取日志输出路径
 	logPath := beego.AppConfig.String("log_path")
 	if logPath == "" {
+		// 如果配置文件中没有配置日志输出路径,则取默认日志输出路径
 		logPath = common.GetLogPath()
 	}
+
+	// 判断当前运行环境是否为 windows,如果为 windows 则需特别处理日志路径
 	if common.IsWindows() {
 		logPath = strings.Replace(logPath, "\\", "\\\\", -1)
 	}
-	// init service
+
+	// init service 初始化服务(是否安装为系统服务)
 	options := make(service.KeyValue)
 	svcConfig := &service.Config{
 		Name:        "Nps",
@@ -189,25 +203,44 @@ func (p *nps) run() error {
 	return nil
 }
 
+// run 程序启动真实入口
 func run() {
+	// 初始化路由
 	routers.Init()
+
 	task := &file.Tunnel{
 		Mode: "webServer",
 	}
+
+	// 从配置文件中读取 bridge_port 配置项
 	bridgePort, err := beego.AppConfig.Int("bridge_port")
 	if err != nil {
 		logs.Error("Getting bridge_port error", err)
 		os.Exit(0)
 	}
+
 	logs.Info("the version of server is %s ,allow client core version to be %s", version.VERSION, version.GetVersion())
+
+	// 初始化连接服务
 	connection.InitConnectionService()
+
 	//crypt.InitTls(filepath.Join(common.GetRunPath(), "conf", "server.pem"), filepath.Join(common.GetRunPath(), "conf", "server.key"))
+	// 初始化tls
 	crypt.InitTls()
+
+	// 初始化允许连接的端口
 	tool.InitAllowPort()
+
+	// 开始系统服务
 	tool.StartSystemInfo()
+
+	// 从配置文件中获取连接超时时间
 	timeout, err := beego.AppConfig.Int("disconnect_timeout")
 	if err != nil {
 		timeout = 60
 	}
+
+	// 协程启动新的服务
+	// 该处启动的为主服务, 所有客户端连接的主端口
 	go server.StartNewServer(bridgePort, task, beego.AppConfig.String("bridge_type"), timeout)
 }

@@ -5,6 +5,7 @@ import (
 	"xuzhi.cc/nps/web/controllers"
 )
 
+// Init 初始化路由地址
 func Init() {
 	web_base_url := beego.AppConfig.String("web_base_url")
 	if len(web_base_url) > 0 {
