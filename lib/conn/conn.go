@@ -133,7 +133,7 @@ func (s *Conn) WriteLenContent(buf []byte) (err error) {
 	return binary.Write(s.Conn, binary.LittleEndian, b)
 }
 
-//read flag
+// ReadFlag 读 flag, 但是目前还不知道为什么要读 flag
 func (s *Conn) ReadFlag() (string, error) {
 	buf := make([]byte, 4)
 	return string(buf), binary.Read(s, binary.LittleEndian, &buf)
@@ -179,7 +179,7 @@ func (s *Conn) SendHealthInfo(info, status string) (int, error) {
 	return s.Write(raw.Bytes())
 }
 
-//get health info from conn
+// GetHealthInfo get health info from conn (获取客户端健康信息)
 func (s *Conn) GetHealthInfo() (info string, status bool, err error) {
 	var l int
 	buf := common.BufPoolMax.Get().([]byte)

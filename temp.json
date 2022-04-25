@@ -1,0 +1,67 @@
+{
+  "Id": 1,
+  "Port": 8081,
+  "ServerIp": "",
+  "Mode": "socks5",
+  "Status": true,
+  "RunStatus": false,
+  "Client": {
+    "Cnf": {
+      "U": "",
+      "P": "",
+      "Compress": false,
+      "Crypt": false
+    },
+    "Id": 2,
+    "VerifyKey": "xi6tlu5dmej5otcv",
+    "Addr": "",
+    "Remark": "客户端测试",
+    "Status": true,
+    "IsConnect": false,
+    "RateLimit": 0,
+    "Flow": {
+      "ExportFlow": 0,
+      "InletFlow": 0,
+      "FlowLimit": 0
+    },
+    "Rate": {
+      "NowRate": 0
+    },
+    "NoStore": false,
+    "NoDisplay": false,
+    "MaxConn": 0,
+    "NowConn": 0,
+    "WebUserName": "",
+    "WebPassword": "",
+    "ConfigConnAllow": true,
+    "MaxTunnelNum": 0,
+    "Version": ""
+  },
+  "Ports": "",
+  "Flow": {
+    "ExportFlow": 0,
+    "InletFlow": 0,
+    "FlowLimit": 0
+  },
+  "Password": "",
+  "Remark": "",
+  "TargetAddr": "",
+  "NoStore": false,
+  "LocalPath": "",
+  "StripPre": "",
+  "Target": {
+    "TargetStr": "",
+    "TargetArr": null,
+    "LocalProxy": false
+  },
+  "MultiAccount": null,
+  "HealthCheckTimeout": 0,
+  "HealthMaxFail": 0,
+  "HealthCheckInterval": 0,
+  "HealthNextTime": "0001-01-01T00:00:00Z",
+  "HealthMap": null,
+  "HttpHealthUrl": "",
+  "HealthRemoveArr": null,
+  "HealthCheckType": "",
+  "HealthCheckTarget": ""
+}

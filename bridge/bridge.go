@@ -89,12 +89,15 @@ func (s *Bridge) StartTunnel() error {
 	return nil
 }
 
-//get health information form client
+// 从客户端获取健康信息,查询客户端是否还活着
+// get health information form client
 func (s *Bridge) GetHealthFromClient(id int, c *conn.Conn) {
+	// 不断尝试客户端是否还活着
 	for {
+		// 获取客户端状态
 		if info, status, err := c.GetHealthInfo(); err != nil {
 			break
-		} else if !status { //the status is true , return target to the targetArr
+		} else if !status { //the status is true , return target to the targetArr (状态为 true ，将目标返回到 targetArr)
 			file.GetDb().JsonDb.Tasks.Range(func(key, value interface{}) bool {
 				v := value.(*file.Tunnel)
 				if v.Client.Id == id && v.Mode == "tcp" && strings.Contains(v.Target.TargetStr, info) {
@@ -127,7 +130,7 @@ func (s *Bridge) GetHealthFromClient(id int, c *conn.Conn) {
 				}
 				return true
 			})
-		} else { //the status is false,remove target from the targetArr
+		} else { //the status is false,remove target from the targetArr (状态为假，从 targetArr 中移除目标)
 			file.GetDb().JsonDb.Tasks.Range(func(key, value interface{}) bool {
 				v := value.(*file.Tunnel)
 				if v.Client.Id == id && v.Mode == "tcp" && common.IsArrContains(v.HealthRemoveArr, info) && !common.IsArrContains(v.Target.TargetArr, info) {
@@ -192,16 +195,21 @@ func (s *Bridge) cliProcess(c *conn.Conn) {
 		c.Close()
 		return
 	}
-	//verify
+	// 根据 verify 查询客户端 ID
 	id, err := file.GetDb().GetIdByVerifyKey(string(buf), c.Conn.RemoteAddr().String())
 	if err != nil {
 		logs.Info("Current client connection validation error, close this client:", c.Conn.RemoteAddr())
+		// 客户端校验失败
 		s.verifyError(c)
 		return
 	} else {
+		// 客户端校验成功
 		s.verifySuccess(c)
 	}
+
+	// 读取 flag
 	if flag, err := c.ReadFlag(); err == nil {
+		// 准备处理连接
 		s.typeDeal(flag, c, id, string(vs))
 	} else {
 		logs.Warn(err, flag)
@@ -224,22 +232,32 @@ func (s *Bridge) DelClient(id int) {
 	}
 }
 
-//use different
+// typeDeal use different
 func (s *Bridge) typeDeal(typeVal string, c *conn.Conn, id int, vs string) {
+	// 获取客户端的开启状态
 	isPub := file.GetDb().IsPubClient(id)
+
+	// 判断类型
 	switch typeVal {
 	case common.WORK_MAIN:
 		if isPub {
+			// 如果客户端被关闭,则直接关闭与客户端的连接
 			c.Close()
 			return
 		}
+
+		// 获取客户端的tcp连接
 		tcpConn, ok := c.Conn.(*net.TCPConn)
 		if ok {
-			// add tcp keep alive option for signal connection
+			// 如果获取成功,则设置 tcp 客户端你的保活和心跳间隔时间, 保持长连接
+			// add tcp keep alive option for signal connection (为信号连接添加 tcp keep alive 选项)
 			_ = tcpConn.SetKeepAlive(true)
 			_ = tcpConn.SetKeepAlivePeriod(5 * time.Second)
 		}
-		//the vKey connect by another ,close the client of before
+
+		// the vKey connect by another ,close the client of before (vKey由另一个连接，关闭之前的客户端)
+		// 如果有相同的 vKey 连接, 则需要断开之前的tcp连接
+		// 保存已经建立连接的 tcp 连接
 		if v, ok := s.Client.LoadOrStore(id, NewClient(nil, nil, c, vs)); ok {
 			if v.(*Client).signal != nil {
 				v.(*Client).signal.WriteClose()
@@ -247,6 +265,8 @@ func (s *Bridge) typeDeal(typeVal string, c *conn.Conn, id int, vs string) {
 			v.(*Client).signal = c
 			v.(*Client).Version = vs
 		}
+
+		// 启动协程, 获取客户端的存活状态
 		go s.GetHealthFromClient(id, c)
 		logs.Info("clientId %d connection succeeded, address:%s ", id, c.Conn.RemoteAddr())
 	case common.WORK_CHAN:
@@ -359,6 +379,7 @@ func (s *Bridge) SendLinkInfo(clientId int, link *conn.Link, t *file.Tunnel) (ta
 }
 
 func (s *Bridge) ping() {
+	// 创建定时任务,每隔 5s 执行一次, 判断客户端连接是否断开,如果已经断开,则主动关闭服务端的客户端连接
 	ticker := time.NewTicker(time.Second * 5)
 	defer ticker.Stop()
 	for {
